@@ -4,8 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import co.uk.silvania.powergrid.blocks.BlockCable;
 import co.uk.silvania.powergrid.blocks.BlockSolarPanel;
+import co.uk.silvania.powergrid.blocks.BlockStorage;
+import co.uk.silvania.powergrid.blocks.CableEntity;
 import co.uk.silvania.powergrid.blocks.SolarPanelEntity;
+import co.uk.silvania.powergrid.blocks.StorageEntity;
 import co.uk.silvania.powergrid.network.ClientPacketHandler;
 import co.uk.silvania.powergrid.network.ServerPacketHandler;
 import cpw.mods.fml.common.Mod;
@@ -30,6 +34,8 @@ public class PowerGrid {
 	public static final String modid = "PowerGrid";
 	
 	public static Block solarPanel;
+	public static Block blockStorage;
+	public static Block cableBlock;
 	
     @Instance(PowerGrid.modid)
     public static PowerGrid instance;
@@ -63,13 +69,19 @@ public class PowerGrid {
     	//TODO NetworkRegistry.instance().registerGuiHandler(this, cityGuiHandler);
        
     	solarPanel = new BlockSolarPanel(500);
+    	blockStorage = new BlockStorage(501);
+    	cableBlock = new BlockCable(502);
     	GameRegistry.registerBlock(solarPanel, "solarPanel");
+    	GameRegistry.registerBlock(blockStorage, "storageBlock");
+		GameRegistry.registerBlock(cableBlock, "cableBlock");
     	LanguageRegistry.addName(solarPanel, "Solar Panel");
 
         
         //MinecraftForge.EVENT_BUS.register(new EventListener());
         
-        GameRegistry.registerTileEntity(SolarPanelEntity.class, "solarPanel");
+    	GameRegistry.registerTileEntity(SolarPanelEntity.class, "solarPanel");
+    	GameRegistry.registerTileEntity(StorageEntity.class, "storage");
+    	GameRegistry.registerTileEntity(CableEntity.class, "cable");
         
         LanguageRegistry.instance().addStringLocalization("itemGroup.tabPowerGrid", "en_US", "PowerGrid");            
         
